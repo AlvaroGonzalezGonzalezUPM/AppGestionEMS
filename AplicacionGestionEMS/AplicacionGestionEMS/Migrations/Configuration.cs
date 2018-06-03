@@ -27,9 +27,6 @@ namespace AplicacionGestionEMS.Migrations
             AddUser(context, "ficitio1", " apellidos ", "ficticio1@alumnos.upm.es", rolAlumno);
             AddUser(context, "ficitio2", " apellidos ", "ficticio2@alumnos.upm.es", rolAlumno);
             AddUser(context, "ficitio3", " apellidos ", "ficticio3@alumnos.upm.es", rolAlumno);
-            AddUser(context, "alvaro", " glez ", "alv@alumnos.upm.es", rolAdmin);
-            AddUser(context, "moldes", "teo", "moldes@gmail.com", rolAdmin);
-            AddUser(context, "a", "pollar", "alumno@gmail.com", rolAlumno);
 
         }
 

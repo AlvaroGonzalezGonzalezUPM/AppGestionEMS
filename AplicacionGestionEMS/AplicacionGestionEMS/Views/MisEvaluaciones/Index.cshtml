@@ -1,0 +1,72 @@
+﻿@model IEnumerable<AplicacionGestionEMS.Models.Evaluaciones>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Curso.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.evalContinua)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nota_P1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nota_P2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nota_P3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nota_P4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nota_Practica)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Curso.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.evalContinua)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nota_P1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nota_P2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nota_P3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nota_P4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nota_Practica)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.EvaluacionId }) |
+        </td>
+    </tr>
+}
+
+</table>

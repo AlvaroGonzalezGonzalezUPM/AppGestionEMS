@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace AplicacionGestionEMS.Controllers
 {
+    [Authorize(Roles = "tipoAdmin")]
     public class MatriculasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

@@ -10,108 +10,117 @@ using AplicacionGestionEMS.Models;
 
 namespace AplicacionGestionEMS.Controllers
 {
-    [Authorize(Roles = "tipoAdmin")]
-    public class CursosController : Controller
+    [Authorize(Roles = "tipoProfesor")]
+    public class EvaluacionesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Cursos
+        // GET: Evaluaciones
         public ActionResult Index()
         {
-            return View(db.Cursos.ToList());
+            var evaluaciones = db.Evaluaciones.Include(e => e.Curso).Include(e => e.User);
+            return View(evaluaciones.ToList());
         }
 
-        // GET: Cursos/Details/5
+        // GET: Evaluaciones/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cursos cursos = db.Cursos.Find(id);
-            if (cursos == null)
+            Evaluaciones evaluaciones = db.Evaluaciones.Find(id);
+            if (evaluaciones == null)
             {
                 return HttpNotFound();
             }
-            return View(cursos);
+            return View(evaluaciones);
         }
 
-        // GET: Cursos/Create
+        // GET: Evaluaciones/Create
         public ActionResult Create()
         {
+            ViewBag.codCurso = new SelectList(db.Cursos, "codCurso", "nombre");
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Name");
             return View();
         }
 
-        // POST: Cursos/Create
+        // POST: Evaluaciones/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "codCurso,nombre")] Cursos cursos)
+        public ActionResult Create([Bind(Include = "EvaluacionId,UserId,evalContinua,nota_P1,nota_P2,nota_P3,nota_P4,nota_Practica,codCurso")] Evaluaciones evaluaciones)
         {
             if (ModelState.IsValid)
             {
-                db.Cursos.Add(cursos);
+                db.Evaluaciones.Add(evaluaciones);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(cursos);
+            ViewBag.codCurso = new SelectList(db.Cursos, "codCurso", "nombre", evaluaciones.codCurso);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Name", evaluaciones.UserId);
+            return View(evaluaciones);
         }
 
-        // GET: Cursos/Edit/5
+        // GET: Evaluaciones/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cursos cursos = db.Cursos.Find(id);
-            if (cursos == null)
+            Evaluaciones evaluaciones = db.Evaluaciones.Find(id);
+            if (evaluaciones == null)
             {
                 return HttpNotFound();
             }
-            return View(cursos);
+            ViewBag.codCurso = new SelectList(db.Cursos, "codCurso", "nombre", evaluaciones.codCurso);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Name", evaluaciones.UserId);
+            return View(evaluaciones);
         }
 
-        // POST: Cursos/Edit/5
+        // POST: Evaluaciones/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "codCurso,nombre")] Cursos cursos)
+        public ActionResult Edit([Bind(Include = "EvaluacionId,UserId,evalContinua,nota_P1,nota_P2,nota_P3,nota_P4,nota_Practica,codCurso")] Evaluaciones evaluaciones)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cursos).State = EntityState.Modified;
+                db.Entry(evaluaciones).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(cursos);
+            ViewBag.codCurso = new SelectList(db.Cursos, "codCurso", "nombre", evaluaciones.codCurso);
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Name", evaluaciones.UserId);
+            return View(evaluaciones);
         }
 
-        // GET: Cursos/Delete/5
+        // GET: Evaluaciones/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cursos cursos = db.Cursos.Find(id);
-            if (cursos == null)
+            Evaluaciones evaluaciones = db.Evaluaciones.Find(id);
+            if (evaluaciones == null)
             {
                 return HttpNotFound();
             }
-            return View(cursos);
+            return View(evaluaciones);
         }
 
-        // POST: Cursos/Delete/5
+        // POST: Evaluaciones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cursos cursos = db.Cursos.Find(id);
-            db.Cursos.Remove(cursos);
+            Evaluaciones evaluaciones = db.Evaluaciones.Find(id);
+            db.Evaluaciones.Remove(evaluaciones);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -10,6 +10,7 @@ using AplicacionGestionEMS.Models;
 
 namespace AplicacionGestionEMS.Controllers
 {
+    [Authorize(Roles = "tipoAdmin")]
     public class AsignacionDocentesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
